@@ -18,43 +18,27 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="z-10 absolute w-full h-2/3"
+        className="z-10 absolute top-0 left-0 w-full h-full"
       >
-        <ASCIIText text="Lucas Song" enableWaves={true} asciiFontSize={8} />
-        <h2 className="text-responsive-h3 font-terminal text-secondary mb-6">
-          FULL STACK DEVELOPER
-        </h2>
-        <p className="text-responsive-h5 max-w-2xl mb-8 opacity-90">
-          Computer Engineering @ UBC
-          <br />
-        </p>
+        <ASCIIText text="Lucas_Song   " enableWaves={true} asciiFontSize={8} />
+        <div className="absolute left-20 top-20">
+          <h2 className="text-responsive-h3 font-terminal text-secondary mb-6">
+            FULL STACK DEVELOPER
+          </h2>
+          <p className="text-responsive-h5 max-w-2xl mb-8 opacity-90">
+            Computer Engineering @ UBC
+            <br />
+          </p>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button
-            asChild
-            size="lg"
-            className="bg-secondary text-background hover:bg-secondary/90 px-8 py-6 rounded-md text-responsive-h6 font-medium"
-          >
-            <a href="#contact">Contact Me</a>
-          </Button>
-
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="bg-transparent border-secondary text-secondary hover:bg-secondary/10 px-8 py-6 rounded-md text-responsive-h6 font-medium"
-          >
-            <a href="#skills" className="flex items-center gap-2">
-              Learn More
-              <Image
-                src="icons/chevrons-right.svg"
-                alt="Arrow right"
-                width={20}
-                height={20}
-                className="text-secondary"
-              />
-            </a>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button
+              asChild
+              size="lg"
+              className="bg-secondary text-background hover:bg-secondary/90 px-8 py-6 rounded-md text-responsive-h6 font-medium"
+            >
+              <a href="#contact">Contact Me</a>
+            </Button>
+          </div>
         </div>
       </motion.div>
     </section>
