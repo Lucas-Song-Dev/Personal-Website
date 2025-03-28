@@ -33,7 +33,7 @@ export default function ProjectsSection() {
     },
     {
       title: "2021 Old personal website",
-      description: "My old website, really proud of the animations and design",
+      description: "My old website, proud of the animations and design",
       technologies: ["React", "Tailwind", "HTML"],
       image: "documents/Old_Website.png",
       link: "https://lucas-song-dev.github.io/Lucas02.Song/",
