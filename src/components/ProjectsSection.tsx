@@ -60,6 +60,8 @@ export default function ProjectsSection() {
         "Express",
         "Google Auth",
         "OpenAI",
+        "Heroku",
+        "AWS",
       ],
       image: "documents/Asset_ai.png",
       link: "https://github.com/Lucas-Song-Dev/Asset_Ai",
