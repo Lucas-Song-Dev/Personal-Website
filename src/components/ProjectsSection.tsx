@@ -1,8 +1,15 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Image from "next/image";
+import Link from "next/link";
 
 interface Project {
   title: string;
@@ -16,33 +23,38 @@ interface Project {
 export default function ProjectsSection() {
   const projects: Project[] = [
     {
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce platform with product listings, shopping cart, and checkout functionality.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      image: 'https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000',
-      link: '#',
-      github: 'https://github.com',
+      title: "Pathfinding Visualizer",
+      description:
+        "grid-based visualizer to help your intuition on common pathfinding algorithms",
+      technologies: ["React", "Node.js", "CSS", "HTML"],
+      image:
+        "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000",
+      link: "https://lucas-song-dev.github.io/Shortest-Path/",
+      github: "https://github.com/Lucas-Song-Dev/Shortest-Path",
     },
-    {
-      title: 'Weather Dashboard',
-      description: 'Real-time weather application with forecasts and historical data visualization.',
-      technologies: ['React', 'Chart.js', 'Weather API', 'Tailwind'],
-      image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1000',
-      link: '#',
-      github: 'https://github.com',
-    },
-    {
-      title: 'Task Management App',
-      description: 'Productivity tool for organizing tasks with drag-and-drop functionality and team collaboration.',
-      technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
-      image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1000',
-      link: '#',
-      github: 'https://github.com',
-    },
+    // {
+    //   title: 'Weather Dashboard',
+    //   description: 'Real-time weather application with forecasts and historical data visualization.',
+    //   technologies: ['React', 'Chart.js', 'Weather API', 'Tailwind'],
+    //   image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1000',
+    //   link: '#',
+    //   github: 'https://github.com',
+    // },
+    // {
+    //   title: 'Task Management App',
+    //   description: 'Productivity tool for organizing tasks with drag-and-drop functionality and team collaboration.',
+    //   technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
+    //   image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1000',
+    //   link: '#',
+    //   github: 'https://github.com',
+    // },
   ];
 
   return (
-    <section id="projects" className="min-h-screen flex flex-col justify-center px-4 md:px-20 2xl:px-40 py-20">
+    <section
+      id="projects"
+      className="min-h-screen flex flex-col justify-center px-4 md:px-20 2xl:px-40 py-20"
+    >
       <div className="max-w-6xl mx-auto w-full">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
@@ -73,12 +85,16 @@ export default function ProjectsSection() {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-responsive-h5 font-terminal">{project.title}</CardTitle>
-                  <CardDescription className="text-gray-400">{project.description}</CardDescription>
+                  <CardTitle className="text-responsive-h5 font-terminal">
+                    {project.title}
+                  </CardTitle>
+                  <CardDescription className="text-gray-400">
+                    {project.description}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <div className="flex flex-wrap gap-2">
-                    {project.technologies.map(tech => (
+                    {project.technologies.map((tech) => (
                       <span
                         key={tech}
                         className="px-2 py-1 bg-secondary/20 text-secondary text-xs rounded-md"
