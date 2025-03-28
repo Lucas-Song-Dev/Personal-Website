@@ -45,7 +45,7 @@ export default function HeroSection() {
             size="lg"
             className="bg-transparent border-secondary text-secondary hover:bg-secondary/10 px-8 py-6 rounded-md text-responsive-h6 font-medium"
           >
-            <a href="#about" className="flex items-center gap-2">
+            <a href="#skills" className="flex items-center gap-2">
               Learn More
               <Image
                 src="icons/chevrons-right.svg"
