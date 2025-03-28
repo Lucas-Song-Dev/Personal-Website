@@ -19,7 +19,9 @@ export default function HeroSection() {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="z-10"
       >
-        <h1 className="text-responsive-h1 font-bold mb-6 neon-text">Lucas Song</h1>
+        <h1 className="text-responsive-h1 font-bold mb-6 neon-text">
+          Lucas Song
+        </h1>
         <h2 className="text-responsive-h3 font-terminal text-secondary mb-6">
           FULL STACK DEVELOPER
         </h2>
@@ -46,7 +48,7 @@ export default function HeroSection() {
             <a href="#about" className="flex items-center gap-2">
               Learn More
               <Image
-                src="/icons/chevrons-right.svg"
+                src="icons/chevrons-right.svg"
                 alt="Arrow right"
                 width={20}
                 height={20}

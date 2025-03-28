@@ -1,12 +1,12 @@
 {
   "name": "nextjs-shadcn",
   "version": "0.1.0",
-  "homepage": "https://lucas-song-dev.github.io/personal-website/",
+  "homepage": "https://lucas-song-dev.github.io/Personal-Website/",
   "private": true,
   "scripts": {
     "dev": "next dev -H 0.0.0.0 --turbopack",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d out",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
