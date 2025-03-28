@@ -55,7 +55,7 @@ export default function TerminalAnimation({
       )}
 
       <div className="flex gap-4">
-        <div className="font-bold">myphz@archlinux:$</div>
+        <div className="font-bold">LucasSong@archlinux:$</div>
         <AnimatePresence>
           <motion.div
             key={currentStep === 0 ? "typing" : "typed"}
