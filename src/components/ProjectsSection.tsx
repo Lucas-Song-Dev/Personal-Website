@@ -23,12 +23,11 @@ interface Project {
 export default function ProjectsSection() {
   const projects: Project[] = [
     {
-      title: "Pathfinding Visualizer",
+      title: "2022 Pathfinding Visualizer",
       description:
         "grid-based visualizer to help your intuition on common pathfinding algorithms",
       technologies: ["React", "Node.js", "CSS", "HTML"],
-      image:
-        "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000",
+      image: "documents/SC_pathfinding.png",
       link: "https://lucas-song-dev.github.io/Shortest-Path/",
       github: "https://github.com/Lucas-Song-Dev/Shortest-Path",
     },
@@ -77,12 +76,17 @@ export default function ProjectsSection() {
             >
               <Card className="bg-black/60 border-secondary/20 overflow-hidden h-full flex flex-col">
                 <div className="relative h-48 w-full overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transform hover:scale-110 transition-transform duration-500"
-                  />
+                  <Link
+                    href={project.link}
+                    className="text-xs text-secondary hover:text-secondary/70 transition-colors font-terminal"
+                  >
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transform hover:scale-110 transition-transform duration-500"
+                    />
+                  </Link>
                 </div>
                 <CardHeader>
                   <CardTitle className="text-responsive-h5 font-terminal">
