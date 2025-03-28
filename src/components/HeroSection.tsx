@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import ASCIIText from "./ui/ASCIIText";
 
 export default function HeroSection() {
   return (
@@ -17,11 +18,9 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="z-10"
+        className="z-10 absolute w-full h-2/3"
       >
-        <h1 className="text-responsive-h1 font-bold mb-6 neon-text">
-          Lucas Song
-        </h1>
+        <ASCIIText text="Lucas Song" enableWaves={true} asciiFontSize={8} />
         <h2 className="text-responsive-h3 font-terminal text-secondary mb-6">
           FULL STACK DEVELOPER
         </h2>
