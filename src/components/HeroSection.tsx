@@ -36,7 +36,7 @@ export default function HeroSection() {
               size="lg"
               className="bg-secondary text-background hover:bg-secondary/90 px-8 py-6 rounded-md text-responsive-h6 font-medium"
             >
-              <a href="#contact">Contact Me</a>
+              <a href="#projects">View Projects</a>
             </Button>
           </div>
         </div>

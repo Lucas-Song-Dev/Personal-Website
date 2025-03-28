@@ -51,10 +51,19 @@ export default function SkillsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-responsive-h2 font-terminal text-secondary mb-12 border-b border-secondary/30 pb-4"
+          className="text-responsive-h2 font-terminal text-secondary mb-4 border-b border-secondary/30 pb-4"
         >
-          1. SKILLS
+          3. SKILLS
         </motion.h2>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-responsive-h3 font-terminal mb-12 border-secondary/30 pb-4"
+        >
+          Relative to experience/skill in JavaScript
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {categories.map((category) => (

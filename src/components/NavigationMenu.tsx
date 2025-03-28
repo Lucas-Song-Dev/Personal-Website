@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import React from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface NavItem {
   id: string;
@@ -14,12 +14,12 @@ interface NavigationMenuProps {
 
 export default function NavigationMenu({ activeSection }: NavigationMenuProps) {
   const navItems: NavItem[] = [
-    { id: 'about', title: '0. ABOUT', path: '#about' },
-    { id: 'skills', title: '1. SKILLS', path: '#skills' },
-    { id: 'work', title: '2. WORK', path: '#work' },
-    { id: 'projects', title: '3. PROJECTS', path: '#projects' },
-    { id: 'contact', title: '4. CONTACT', path: '#contact' },
-    { id: 'resume', title: '5. RESUME', path: '#resume' },
+    { id: "about", title: "0. ABOUT", path: "#about" },
+    { id: "projects", title: "1. PROJECTS", path: "#projects" },
+    { id: "work", title: "2. WORK", path: "#work" },
+    { id: "skills", title: "3. SKILLS", path: "#skills" },
+    { id: "contact", title: "4. CONTACT", path: "#contact" },
+    { id: "resume", title: "5. RESUME", path: "#resume" },
   ];
 
   return (
@@ -47,20 +47,34 @@ export function MobileNavigation({ activeSection }: NavigationMenuProps) {
   return (
     <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end md:hidden">
       <div className="flex flex-col items-end space-y-4">
-        {Array(6).fill(0).map((_, i) => (
-          <Link
-            key={i}
-            href={`#${['about', 'skills', 'work', 'projects', 'contact', 'resume'][i]}`}
-            className="block"
-          >
-            <div
-              className={cn(
-                "nav-dot",
-                activeSection === ['about', 'skills', 'work', 'projects', 'contact', 'resume'][i] ? 'active' : ''
-              )}
-            />
-          </Link>
-        ))}
+        {Array(6)
+          .fill(0)
+          .map((_, i) => (
+            <Link
+              key={i}
+              href={`#${
+                ["about", "skills", "work", "projects", "contact", "resume"][i]
+              }`}
+              className="block"
+            >
+              <div
+                className={cn(
+                  "nav-dot",
+                  activeSection ===
+                    [
+                      "about",
+                      "skills",
+                      "work",
+                      "projects",
+                      "contact",
+                      "resume",
+                    ][i]
+                    ? "active"
+                    : ""
+                )}
+              />
+            </Link>
+          ))}
       </div>
     </div>
   );

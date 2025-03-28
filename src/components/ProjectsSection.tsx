@@ -82,7 +82,7 @@ export default function ProjectsSection() {
           viewport={{ once: true }}
           className="text-responsive-h2 font-terminal text-secondary mb-12 border-b border-secondary/30 pb-4"
         >
-          3. PROJECTS
+          1. PROJECTS
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

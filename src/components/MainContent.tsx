@@ -153,9 +153,9 @@ const MainContent: React.FC = () => {
     const handleScroll = () => {
       const sections = [
         "about",
-        "skills",
-        "work",
         "projects",
+        "work",
+        "skills",
         "contact",
         "resume",
       ];
@@ -190,9 +190,9 @@ const MainContent: React.FC = () => {
 
       <main>
         <HeroSection />
-        <SkillsSection />
-        <WorkSection />
         <ProjectsSection />
+        <WorkSection />
+        <SkillsSection />
         <ContactSection />
         <ResumeSection />
       </main>
