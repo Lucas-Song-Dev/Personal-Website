@@ -21,7 +21,7 @@ export default function HeroSection() {
         className="z-10 absolute top-0 left-0 w-full h-full"
       >
         <ASCIIText text="Lucas_Song   " enableWaves={true} asciiFontSize={8} />
-        <div className="absolute left-20 top-20">
+        <div className="absolute left-20 top-40">
           <h2 className="text-responsive-h3 font-terminal text-secondary mb-6">
             FULL STACK DEVELOPER
           </h2>

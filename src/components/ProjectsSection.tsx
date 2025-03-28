@@ -39,14 +39,32 @@ export default function ProjectsSection() {
       link: "https://lucas-song-dev.github.io/Lucas02.Song/",
       github: "https://github.com/Lucas-Song-Dev/Lucas02.Song",
     },
-    // {
-    //   title: 'Task Management App',
-    //   description: 'Productivity tool for organizing tasks with drag-and-drop functionality and team collaboration.',
-    //   technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
-    //   image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1000',
-    //   link: '#',
-    //   github: 'https://github.com',
-    // },
+    {
+      title: "2022 Issue Hound",
+      description:
+        "Productivity tool for organizing tasks and ticketing system",
+      technologies: ["React.js", "CSS", "HTML", "PostgreSQL"],
+      image: "documents/issue_hound.png",
+      link: "https://lucas-song-dev.github.io/Bug-Tracker/",
+      github: "https://github.com/Lucas-Song-Dev",
+    },
+    {
+      title: "2023 Asset_Ai",
+      description:
+        "Full-stack AI-powered asset generator to enhance digital communication | Taken down after heroku free trial",
+      technologies: [
+        "React.js",
+        "CSS",
+        "HTML",
+        "MongoDB",
+        "Express",
+        "Google Auth",
+        "OpenAI",
+      ],
+      image: "documents/Asset_ai.png",
+      link: "https://github.com/Lucas-Song-Dev/Asset_Ai",
+      github: "https://github.com/Lucas-Song-Dev/Asset_Ai",
+    },
   ];
 
   return (
