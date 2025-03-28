@@ -26,19 +26,19 @@ export default function ProjectsSection() {
       title: "2022 Pathfinding Visualizer",
       description:
         "grid-based visualizer to help your intuition on common pathfinding algorithms",
-      technologies: ["React", "Node.js", "CSS", "HTML"],
+      technologies: ["React", "Node.js", "CSS", "HTML", "Tailwind"],
       image: "documents/SC_pathfinding.png",
       link: "https://lucas-song-dev.github.io/Shortest-Path/",
       github: "https://github.com/Lucas-Song-Dev/Shortest-Path",
     },
-    // {
-    //   title: 'Weather Dashboard',
-    //   description: 'Real-time weather application with forecasts and historical data visualization.',
-    //   technologies: ['React', 'Chart.js', 'Weather API', 'Tailwind'],
-    //   image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1000',
-    //   link: '#',
-    //   github: 'https://github.com',
-    // },
+    {
+      title: "2021 Old personal website",
+      description: "My old website, really proud of the animations and design",
+      technologies: ["React", "Tailwind", "HTML"],
+      image: "documents/Old_Website.png",
+      link: "https://lucas-song-dev.github.io/Lucas02.Song/",
+      github: "https://github.com/Lucas-Song-Dev/Lucas02.Song",
+    },
     // {
     //   title: 'Task Management App',
     //   description: 'Productivity tool for organizing tasks with drag-and-drop functionality and team collaboration.',
@@ -78,7 +78,7 @@ export default function ProjectsSection() {
                 <div className="relative h-48 w-full overflow-hidden">
                   <Link
                     href={project.link}
-                    className="text-xs text-secondary hover:text-secondary/70 transition-colors font-terminal"
+                    className="text-xs text-black hover:text-secondary/70 transition-colors font-terminal"
                   >
                     <Image
                       src={project.image}
@@ -89,7 +89,7 @@ export default function ProjectsSection() {
                   </Link>
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-responsive-h5 font-terminal">
+                  <CardTitle className="text-white font-terminal">
                     {project.title}
                   </CardTitle>
                   <CardDescription className="text-gray-400">
