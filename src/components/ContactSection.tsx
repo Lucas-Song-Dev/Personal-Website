@@ -152,70 +152,13 @@ export default function ContactSection() {
             viewport={{ once: true }}
             className="bg-black/30 p-6 rounded-lg border border-secondary/20"
           >
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-terminal text-gray-400 mb-1"
-                >
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full bg-gray-900/50 border border-secondary/20 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-secondary/50"
-                  placeholder="John Doe"
-                  required
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-terminal text-gray-400 mb-1"
-                >
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full bg-gray-900/50 border border-secondary/20 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-secondary/50"
-                  placeholder="john@example.com"
-                  required
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-terminal text-gray-400 mb-1"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={5}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full bg-gray-900/50 border border-secondary/20 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-secondary/50 resize-none"
-                  placeholder="Your message here..."
-                  required
-                ></textarea>
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full bg-secondary text-background hover:bg-secondary/90 transition-colors"
-              >
-                Send Message
-              </Button>
-
-              {status && <p className="text-gray-400 mt-2">{status}</p>}
-            </form>
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSfeSJPa2lXKHLKJzWa5zFObkfSZIpI4bjhBWmVaMQo_-qxLEg/viewform?embedded=true"
+              width="100%"
+              height="824"
+            >
+              Loading…
+            </iframe>
           </motion.div>
         </div>
       </div>
