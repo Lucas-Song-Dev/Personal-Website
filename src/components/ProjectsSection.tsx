@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Card,
@@ -18,10 +18,31 @@ interface Project {
   image: string;
   link: string;
   github?: string;
+  imageHalf?: string;
 }
 
 export default function ProjectsSection() {
+  const [hoveredImage, setHoveredImage] = useState<string>(""); // null, 'first', or 'second'
+
   const projects: Project[] = [
+    {
+      title: "2025 STK-market",
+      description:
+        "Heatmap stock market, useful for arbitrage backtesting momentum strategies",
+      technologies: [
+        "React",
+        "Typescript",
+        "CSS",
+        "HTML",
+        "Tailwind",
+        "Python",
+        "RESTful API",
+      ],
+      image: "documents/stk-market-1",
+      imageHalf: "documents/stk-market-1",
+      link: "https://github.com/Lucas-Song-Dev",
+      github: "https://github.com/Lucas-Song-Dev",
+    },
     {
       title: "2022 Pathfinding Visualizer",
       description:
@@ -97,15 +118,62 @@ export default function ProjectsSection() {
               <Card className="bg-black/60 border-secondary/20 overflow-hidden h-full flex flex-col">
                 <div className="relative h-48 w-full overflow-hidden">
                   <Link
+                    target="_blank"
                     href={project.link}
                     className="text-xs text-black hover:text-secondary/70 transition-colors font-terminal"
                   >
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transform hover:scale-110 transition-transform duration-500"
-                    />
+                    {project.imageHalf ? (
+                      <div className="relative w-full h-full flex">
+                        {/* First image container */}
+                        <div
+                          className={`h-full overflow-hidden relative transition-all duration-500 
+            ${
+              hoveredImage === "first"
+                ? "w-full"
+                : hoveredImage === "second"
+                ? "w-0"
+                : "w-1/2"
+            }`}
+                          onMouseEnter={() => setHoveredImage("first")}
+                          onMouseLeave={() => setHoveredImage("")}
+                        >
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover transform transition-transform duration-500 hover:scale-110"
+                          />
+                        </div>
+
+                        {/* Second image container */}
+                        <div
+                          className={`h-full overflow-hidden relative transition-all duration-500 
+            ${
+              hoveredImage === "second"
+                ? "w-full"
+                : hoveredImage === "first"
+                ? "w-0"
+                : "w-1/2"
+            }`}
+                          onMouseEnter={() => setHoveredImage("second")}
+                          onMouseLeave={() => setHoveredImage("")}
+                        >
+                          <Image
+                            src={project.imageHalf}
+                            alt={project.title}
+                            fill
+                            className="object-cover transform transition-transform duration-500 hover:scale-110"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transform hover:scale-110 transition-transform duration-500"
+                      />
+                    )}
                   </Link>
                 </div>
                 <CardHeader>
@@ -130,6 +198,7 @@ export default function ProjectsSection() {
                 </CardContent>
                 <CardFooter className="flex justify-between border-t border-secondary/20 pt-4">
                   <Link
+                    target="_blank"
                     href={project.link}
                     className="text-xs text-secondary hover:text-secondary/70 transition-colors font-terminal"
                   >
@@ -137,6 +206,7 @@ export default function ProjectsSection() {
                   </Link>
                   {project.github && (
                     <Link
+                      target="_blank"
                       href={project.github}
                       className="text-xs text-gray-400 hover:text-white transition-colors font-terminal"
                     >
