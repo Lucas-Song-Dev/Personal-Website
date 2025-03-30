@@ -40,8 +40,8 @@ export default function ProjectsSection() {
       ],
       image: "documents/stk-market-1",
       imageHalf: "documents/stk-market-2",
-      link: "https://github.com/Lucas-Song-Dev",
-      github: "https://github.com/Lucas-Song-Dev",
+      link: "https://github.com/Lucas-Song-Dev/StockHeatMap",
+      github: "https://github.com/Lucas-Song-Dev/StockHeatMap",
     },
     {
       title: "2022 Pathfinding Visualizer",
