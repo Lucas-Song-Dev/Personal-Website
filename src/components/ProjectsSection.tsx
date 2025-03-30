@@ -26,7 +26,7 @@ export default function ProjectsSection() {
 
   const projects: Project[] = [
     {
-      title: "2025 STK-market",
+      title: "2025 STK-market | WIP",
       description:
         "Heatmap stock market, useful for arbitrage backtesting momentum strategies",
       technologies: [
