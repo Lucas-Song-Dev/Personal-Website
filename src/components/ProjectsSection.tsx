@@ -39,7 +39,7 @@ export default function ProjectsSection() {
         "RESTful API",
       ],
       image: "documents/stk-market-1",
-      imageHalf: "documents/stk-market-1",
+      imageHalf: "documents/stk-market-2",
       link: "https://github.com/Lucas-Song-Dev",
       github: "https://github.com/Lucas-Song-Dev",
     },
