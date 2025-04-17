@@ -26,6 +26,25 @@ export default function ProjectsSection() {
 
   const projects: Project[] = [
     {
+      title: "2025 Product Painpoint Analyzer",
+      description:
+        "A web app that scrapes Reddit for user experiences with software products, uses NLP to identify pain points, and leverages OpenAI to generate actionable recommendations for addressing these issues.",
+      technologies: [
+        "React",
+        "Express",
+        "MongoDB",
+        "Flask",
+        "OpenAI API",
+        "Reddit API",
+        "JWT Authentication",
+        "SCSS",
+        "Digital Ocean",
+      ],
+      image: "documents/painpoint-1.png",
+      link: "https://reddit-painpoint-4nx9b.ondigitalocean.app/",
+      github: "https://github.com/Lucas-Song-Dev/RedditPainpoint",
+    },
+    {
       title: "2025 STK-market | WIP",
       description:
         "Heatmap stock market, useful for arbitrage backtesting momentum strategies",
