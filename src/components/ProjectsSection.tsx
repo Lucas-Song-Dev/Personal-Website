@@ -22,7 +22,7 @@ interface Project {
 }
 
 export default function ProjectsSection() {
-  const [hoveredImage, setHoveredImage] = useState<string>(""); // null, 'first', or 'second'
+  const [hoveredImage, setHoveredImage] = useState<string>("");
 
   const projects: Project[] = [
     {
