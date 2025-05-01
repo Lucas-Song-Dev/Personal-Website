@@ -134,7 +134,7 @@ export default function ContactSection() {
                 </svg>
 
                 <a
-                  href="linkedin.com/in/lucas02-song/"
+                  href="https://www.linkedin.com/in/lucas01-song/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-secondary transition-colors"
