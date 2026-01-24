@@ -1,36 +1,37 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-interface Skill {
-  name: string;
-  level: number;
-  category: string;
-}
-
 export default function SkillsSection() {
-  const skills: Skill[] = [
-    { name: "JavaScript", level: 90, category: "Frontend" },
-    { name: "TypeScript", level: 65, category: "Frontend" },
-    { name: "React", level: 88, category: "Frontend" },
-    { name: "Next.js", level: 82, category: "Frontend" },
-    { name: "HTML/CSS", level: 95, category: "Frontend" },
-    { name: "Tailwind CSS", level: 90, category: "Frontend" },
-    { name: "Node.js", level: 80, category: "Backend" },
-    { name: "Express", level: 78, category: "Backend" },
-    { name: "MongoDB", level: 75, category: "Backend" },
-    { name: "PostgreSQL", level: 72, category: "Backend" },
-    { name: "Git", level: 85, category: "Tools" },
-    { name: "Docker", level: 70, category: "DevOps" },
+  const skills = [
+    "Python",
+    "JavaScript",
+    "TypeScript",
+    "Java",
+    "HTML & CSS",
+    "SQL",
+    "React",
+    "Redux",
+    "Next.js",
+    "Node.js",
+    "Express",
+    "FastAPI",
+    "MongoDB",
+    "AWS (DynamoDB, Lambda, ECR, EKS)",
+    "Datadog",
+    "Docker",
+    "Heroku",
+    "Git",
+    "Jira",
+    "Jest",
+    "Pytest",
   ];
-
-  const categories = Array.from(new Set(skills.map((skill) => skill.category)));
 
   const container = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.05,
       },
     },
   };
@@ -51,71 +52,28 @@ export default function SkillsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-responsive-h2 font-terminal text-secondary mb-4 border-b border-secondary/30 pb-4"
+          className="text-responsive-h2 font-terminal text-secondary mb-12 border-b border-secondary/30 pb-4"
         >
           3. SKILLS
         </motion.h2>
+
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          variants={container}
+          initial="hidden"
+          whileInView="show"
           viewport={{ once: true }}
-          className="text-responsive-h3 font-terminal mb-12 border-secondary/30 pb-4"
+          className="flex flex-wrap gap-3"
         >
-          Relative to experience/skill in JavaScript
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {categories.map((category) => (
-            <div key={category} className="mb-8">
-              <motion.h3
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="text-responsive-h4 font-terminal mb-6"
-              >
-                {category}
-              </motion.h3>
-
-              <motion.ul
-                variants={container}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="space-y-4"
-              >
-                {skills
-                  .filter((skill) => skill.category === category)
-                  .map((skill) => (
-                    <motion.li
-                      key={skill.name}
-                      variants={item}
-                      className="mb-4"
-                    >
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="font-terminal text-responsive-h6">
-                          {skill.name}
-                        </span>
-                        <span className="text-secondary text-responsive-h6">
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="w-full bg-gray-800 rounded-full h-2.5">
-                        <motion.div
-                          className="bg-secondary h-2.5 rounded-full"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          transition={{ duration: 1, ease: "easeOut" }}
-                          viewport={{ once: true }}
-                        ></motion.div>
-                      </div>
-                    </motion.li>
-                  ))}
-              </motion.ul>
-            </div>
+          {skills.map((skill) => (
+            <motion.span
+              key={skill}
+              variants={item}
+              className="px-4 py-2 bg-secondary/20 text-secondary rounded-md font-terminal text-sm md:text-base hover:bg-secondary/30 transition-colors"
+            >
+              {skill}
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
