@@ -9,7 +9,11 @@ interface WorkExperience {
   description: string[];
   technologies: string[];
 }
-export default function WorkSection() {
+interface WorkSectionProps {
+  inTerminal?: boolean;
+}
+
+export default function WorkSection({ inTerminal }: WorkSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
   console.log("🚀 ~ WorkSection ~ activeTab:", activeTab);
   const experiences: WorkExperience[] = [
@@ -62,23 +66,32 @@ export default function WorkSection() {
   console.log("🚀 ~ WorkSection ~ experiences:", experiences);
   return (
     <section
-      id="work"
-      className="min-h-screen flex flex-col justify-center px-4 md:px-20 2xl:px-40 py-20"
+      {...(!inTerminal && { id: "work" })}
+      className={`${inTerminal ? "" : "min-h-screen"} flex flex-col justify-center px-4 md:px-20 2xl:px-40 py-20`}
     >
       <div className="max-w-6xl mx-auto w-full">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-responsive-h2 font-terminal mb-12 border-b border-secondary/30 pb-4 flex flex-wrap items-baseline gap-2"
-        >
-          <span className="text-green-400 text-base md:text-lg opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
-          <span className="text-secondary">ls ~/work/</span>
-        </motion.h2>
+        {!inTerminal && (
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-responsive-h2 font-terminal mb-12 border-b border-secondary/30 pb-4 flex flex-wrap items-baseline gap-2"
+          >
+            <span className="text-green-400 text-base md:text-lg opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
+            <span className="text-secondary">ls ~/work/</span>
+          </motion.h2>
+        )}
 
         <div className="flex flex-col md:flex-row gap-8">
-          <div className="md:w-1/3 mb-6 md:mb-0">
+          <motion.div
+            className="md:w-1/3 mb-6 md:mb-0"
+            {...(inTerminal && {
+              initial: { opacity: 0, y: 8 },
+              animate: { opacity: 1, y: 0 },
+              transition: { delay: 0, duration: 0.35 },
+            })}
+          >
             <div className="sticky top-24 space-y-2 font-terminal">
               {experiences.map((experience, index) => (
                 <button
@@ -104,13 +117,13 @@ export default function WorkSection() {
                 </button>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: inTerminal ? 8 : 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: inTerminal ? 0.35 : 0.3, delay: inTerminal ? 0.14 : 0 }}
             className="md:w-2/3"
           >
             <h3 className="text-responsive-h4 font-terminal">

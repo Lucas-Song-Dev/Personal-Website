@@ -32,7 +32,11 @@ interface Project {
   projectHighlights?: string[];
 }
 
-export default function ProjectsSection() {
+interface ProjectsSectionProps {
+  inTerminal?: boolean;
+}
+
+export default function ProjectsSection({ inTerminal }: ProjectsSectionProps) {
   const [hoveredImage, setHoveredImage] = useState<string>("");
   const insightsRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -195,32 +199,39 @@ export default function ProjectsSection() {
   return (
     <section
       ref={sectionRef}
-      id="projects"
-      className="min-h-screen flex flex-col justify-center px-4 md:px-20 2xl:px-40 py-20 relative"
+      {...(!inTerminal && { id: "projects" })}
+      className={`${inTerminal ? "" : "min-h-screen"} flex flex-col justify-center px-4 md:px-20 2xl:px-40 py-20 relative`}
     >
       <div className="max-w-6xl mx-auto w-full">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-responsive-h2 font-terminal mb-12 border-b border-secondary/30 pb-4 flex flex-wrap items-baseline gap-2"
-        >
-          <span className="text-green-400 text-base md:text-lg opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
-          <span className="text-secondary">ls ~/projects/</span>
-        </motion.h2>
+        {!inTerminal && (
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-responsive-h2 font-terminal mb-12 border-b border-secondary/30 pb-4 flex flex-wrap items-baseline gap-2"
+          >
+            <span className="text-green-400 text-base md:text-lg opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
+            <span className="text-secondary">ls ~/projects/</span>
+          </motion.h2>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {insightsProject && (
             <motion.div
               ref={insightsRef}
               key={insightsProject.title}
-              className="md:col-span-2 lg:col-span-3 min-h-[80vh] md:min-h-[90vh] relative overflow-visible"
+              {...(inTerminal && {
+                initial: { opacity: 0, y: 8 },
+                animate: { opacity: 1, y: 0 },
+                transition: { delay: 0, duration: 0.35 },
+              })}
+              className={`md:col-span-2 lg:col-span-3 ${inTerminal ? "" : "min-h-[80vh] md:min-h-[90vh]"} relative overflow-visible`}
             >
               {/* Expanded inline view with parallax - always rendered, opacity controlled */}
               <motion.div
-                style={{ opacity }}
-                className={`w-full h-full relative z-20 ${insightsInView ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                style={inTerminal ? {} : { opacity }}
+                className={`w-full h-full relative z-20 ${inTerminal || insightsInView ? 'pointer-events-auto' : 'pointer-events-none'}`}
               >
                 <div className="relative w-full h-full flex flex-col md:flex-row gap-6 md:gap-8 py-8">
                   {/* Large Image - loads in first with parallax */}
@@ -326,8 +337,8 @@ export default function ProjectsSection() {
                 </div>
               </motion.div>
 
-              {/* Collapsed card view - shown when not in expanded view */}
-              <motion.div
+              {/* Collapsed card view - shown when not in expanded view (not used in terminal) */}
+              {!inTerminal && <motion.div
                 initial={{ opacity: 1 }}
                 whileInView={{ opacity: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
@@ -392,17 +403,27 @@ export default function ProjectsSection() {
                     )}
                   </CardFooter>
                 </Card>
-              </motion.div>
+              </motion.div>}
             </motion.div>
           )}
 
-          {otherProjects.map((project, index) => (
+          {otherProjects.map((project, index) => {
+            const cardMotion = inTerminal
+              ? {
+                  initial: { opacity: 0, y: 8 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { duration: 0.35, delay: (index + 1) * 0.14 },
+                }
+              : {
+                  initial: { opacity: 0, y: 50 },
+                  whileInView: { opacity: 1, y: 0 },
+                  transition: { duration: 0.5, delay: index * 0.1 },
+                  viewport: { once: true },
+                };
+            return (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              {...cardMotion}
             >
               <Card className="bg-black/60 border-secondary/20 overflow-hidden h-full flex flex-col">
                 <div className="relative h-48 w-full overflow-hidden">
@@ -509,7 +530,8 @@ export default function ProjectsSection() {
                 </CardFooter>
               </Card>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

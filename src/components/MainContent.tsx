@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import React, { useState, useRef } from "react";
 import NavigationMenu, { MobileNavigation } from "./NavigationMenu";
 import DragAnywhere from "./DragAnywhere";
-import HeroSection from "./HeroSection";
-import SkillsSection from "./SkillsSection";
-import WorkSection from "./WorkSection";
-import ProjectsSection from "./ProjectsSection";
-import ContactSection from "./ContactSection";
-import ResumeSection from "./ResumeSection";
+import TerminalShell, { TerminalShellHandle } from "./TerminalShell";
 import { motion } from "framer-motion";
 
 interface Point {
@@ -31,7 +28,7 @@ const CursorTrail: React.FC = () => {
   const [colorIndex, setColorIndex] = useState<number>(0);
   const [lastDrawTime, setLastDrawTime] = useState<number>(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();
       setTrail((prev) =>
@@ -42,7 +39,6 @@ const CursorTrail: React.FC = () => {
       );
 
       if (dragging && lastPos && now - lastDrawTime > 50) {
-        // Cooldown of 50ms
         setLines((prev) => [
           ...prev,
           {
@@ -97,6 +93,7 @@ const CursorTrail: React.FC = () => {
         width: "100vw",
         height: "100vh",
         pointerEvents: "none",
+        zIndex: 9999,
       }}
     >
       {trail.map(({ point, timestamp }, index) => (
@@ -146,35 +143,27 @@ const CursorTrail: React.FC = () => {
   );
 };
 
+// Map section ids to the commands that reveal them
+const SECTION_COMMANDS: Record<string, string> = {
+  about:    "whoami",
+  projects: "projects",
+  work:     "work",
+  skills:   "skills",
+  contact:  "contact",
+  resume:   "resume",
+};
+
 const MainContent: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>("about");
+  const terminalRef = useRef<TerminalShellHandle>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = [
-        "about",
-        "projects",
-        "work",
-        "skills",
-        "contact",
-        "resume",
-      ];
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (!element) continue;
-
-        const rect = element.getBoundingClientRect();
-        if (rect.top <= 100 && rect.bottom >= 100) {
-          setActiveSection(section);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const runCommand = (sectionId: string) => {
+    const cmd = SECTION_COMMANDS[sectionId] ?? sectionId;
+    terminalRef.current?.runCommand(cmd);
+    if (SECTION_COMMANDS[sectionId]) {
+      setActiveSection(sectionId);
+    }
+  };
 
   return (
     <motion.div
@@ -183,19 +172,16 @@ const MainContent: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="bg-background text-text"
     >
-      <CursorTrail />
-      <DragAnywhere />
-      <NavigationMenu activeSection={activeSection} />
-      <MobileNavigation activeSection={activeSection} />
+      {/* Terminal shell fills the fixed viewport */}
+      <TerminalShell ref={terminalRef} />
 
-      <main>
-        <HeroSection />
-        <ProjectsSection />
-        <WorkSection />
-        <SkillsSection />
-        <ContactSection />
-        <ResumeSection />
-      </main>
+      {/* Overlay elements rendered on top */}
+      <DragAnywhere />
+      <NavigationMenu activeSection={activeSection} runCommand={runCommand} />
+      <MobileNavigation activeSection={activeSection} runCommand={runCommand} />
+
+      {/* Cursor trail last so it's always on top */}
+      <CursorTrail />
     </motion.div>
   );
 };

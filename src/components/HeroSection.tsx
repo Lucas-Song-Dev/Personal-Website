@@ -74,7 +74,7 @@ export default function HeroSection() {
                         Computer Engineering @ UBC
                       </span>
                       <br />
-                      <h2 className="text-responsive-h1 font-terminal text-secondary">
+                      <h2 className="text-responsive-h6 font-terminal text-white">
                         FULL STACK DEVELOPER
                       </h2>
                     </>

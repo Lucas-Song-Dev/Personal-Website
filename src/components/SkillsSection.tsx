@@ -1,7 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export default function SkillsSection() {
+interface SkillsSectionProps {
+  inTerminal?: boolean;
+}
+
+export default function SkillsSection({ inTerminal }: SkillsSectionProps) {
   const skills = [
     "Python",
     "JavaScript",
@@ -43,26 +47,29 @@ export default function SkillsSection() {
 
   return (
     <section
-      id="skills"
+      {...(!inTerminal && { id: "skills" })}
       className="flex flex-col justify-center px-4 md:px-20 2xl:px-40 py-20"
     >
       <div className="max-w-6xl mx-auto w-full">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-responsive-h2 font-terminal mb-12 border-b border-secondary/30 pb-4 flex flex-wrap items-baseline gap-2"
-        >
-          <span className="text-green-400 text-base md:text-lg opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
-          <span className="text-secondary">cat ~/.skills</span>
-        </motion.h2>
+        {!inTerminal && (
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-responsive-h2 font-terminal mb-12 border-b border-secondary/30 pb-4 flex flex-wrap items-baseline gap-2"
+          >
+            <span className="text-green-400 text-base md:text-lg opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
+            <span className="text-secondary">cat ~/.skills</span>
+          </motion.h2>
+        )}
 
         <motion.div
           variants={container}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
+          animate={inTerminal ? "show" : undefined}
+          whileInView={inTerminal ? undefined : "show"}
+          viewport={inTerminal ? undefined : { once: true }}
           className="flex flex-wrap gap-3"
         >
           {skills.map((skill) => (
