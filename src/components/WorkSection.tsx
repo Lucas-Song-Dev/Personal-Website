@@ -71,9 +71,10 @@ export default function WorkSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-responsive-h2 font-terminal text-secondary mb-12 border-b border-secondary/30 pb-4"
+          className="text-responsive-h2 font-terminal mb-12 border-b border-secondary/30 pb-4 flex flex-wrap items-baseline gap-2"
         >
-          2. WORK
+          <span className="text-green-400 text-base md:text-lg opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
+          <span className="text-secondary">ls ~/work/</span>
         </motion.h2>
 
         <div className="flex flex-col md:flex-row gap-8">
@@ -89,7 +90,17 @@ export default function WorkSection() {
                       : "hover:bg-gray-800/50 text-gray-400 hover:text-gray-300"
                   }`}
                 >
-                  {experience.company}
+                  {activeTab === index ? (
+                    <span>
+                      <span className="text-green-400 opacity-70">→ </span>
+                      {experience.company}/
+                    </span>
+                  ) : (
+                    <span>
+                      <span className="opacity-50">$ cd </span>
+                      {experience.company}/
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
