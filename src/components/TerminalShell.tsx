@@ -122,7 +122,8 @@ function buildOutput(canonical: string | null, raw: string): React.ReactNode {
   }
 }
 
-const TerminalShell = forwardRef<TerminalShellHandle, {}>((_, ref) => {
+const TerminalShell = forwardRef<TerminalShellHandle, object>(
+  (_, ref) => {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [popupOpen, setPopupOpen] = useState(false);
@@ -262,7 +263,7 @@ const TerminalShell = forwardRef<TerminalShellHandle, {}>((_, ref) => {
     }
   };
 
-  return (
+    return (
     <div className="fixed inset-0">
       {/* ASCII background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -364,8 +365,9 @@ const TerminalShell = forwardRef<TerminalShellHandle, {}>((_, ref) => {
         </div>
       </div>
     </div>
-  );
-});
+    );
+  }
+);
 
 TerminalShell.displayName = "TerminalShell";
 export default TerminalShell;
