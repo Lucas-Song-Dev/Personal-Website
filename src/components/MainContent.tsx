@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import NavigationMenu, { MobileNavigation } from "./NavigationMenu";
-import DragAnywhere from "./DragAnywhere";
+import { MobileNavigation } from "./NavigationMenu";
 import TerminalShell, { TerminalShellHandle } from "./TerminalShell";
 import { motion } from "framer-motion";
 
@@ -16,7 +15,41 @@ interface Line {
   to: Point;
 }
 
-const colors = ["cyan", "magenta", "blue", "cyan", "magenta", "blue"];
+/** Distinct hues for pointer SVGs and drag strokes (not gradients / spheres). */
+const CURSOR_COLORS = [
+  "#22d3ee", // cyan
+  "#e879f9", // fuchsia
+  "#60a5fa", // blue
+  "#4ade80", // green
+  "#fb923c", // orange
+  "#f472b6", // pink
+];
+
+function CursorPointerIcon({
+  color,
+  size,
+}: {
+  color: string;
+  size: number;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      style={{ display: "block", filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.45))" }}
+      aria-hidden
+    >
+      <path
+        d="M5 2.5 5 19.5 10.2 14.3 14.5 22.5 17.2 20.8 13 12.8 20.5 12.8 5 2.5z"
+        fill={color}
+        stroke="rgba(0,0,0,0.4)"
+        strokeWidth="0.75"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 const CursorTrail: React.FC = () => {
   const [trail, setTrail] = useState<{ point: Point; timestamp: number }[]>([]);
@@ -43,11 +76,11 @@ const CursorTrail: React.FC = () => {
           ...prev,
           {
             line: { from: lastPos, to: { x: e.clientX, y: e.clientY } },
-            color: colors[colorIndex],
+            color: CURSOR_COLORS[colorIndex % CURSOR_COLORS.length],
             timestamp: now,
           },
         ]);
-        setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
+        setColorIndex((prevIndex) => (prevIndex + 1) % CURSOR_COLORS.length);
         setLastDrawTime(now);
       }
       setLastPos({ x: e.clientX, y: e.clientY });
@@ -82,7 +115,7 @@ const CursorTrail: React.FC = () => {
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [dragging, lastPos, colorIndex, lastDrawTime]);
+  }, [dragging, lastPos, lastDrawTime]);
 
   return (
     <div
@@ -96,35 +129,37 @@ const CursorTrail: React.FC = () => {
         zIndex: 9999,
       }}
     >
-      {trail.map(({ point, timestamp }, index) => (
-        <div
-          key={`${timestamp} + ${point.x} + ${index}`}
-          style={{
-            position: "absolute",
-            left: point.x,
-            top: point.y,
-            width: `${50 - index}px`,
-            height: `${50 - index}px`,
-            background: `linear-gradient(45deg, ${
-              colors[(colorIndex + index) % colors.length]
-            }, transparent)`,
-            borderRadius: "50%",
-            filter: "blur(5px)",
-            transform: "translate(-50%, -50%)",
-            opacity: Math.max(0, (500 - (Date.now() - timestamp)) / 500),
-            transition: "opacity 0.5s ease-out",
-          }}
-        />
-      ))}
+      {trail.map(({ point, timestamp }, index) => {
+        const fade = Math.max(0, (500 - (Date.now() - timestamp)) / 500);
+        const hue = CURSOR_COLORS[index % CURSOR_COLORS.length];
+        const size = Math.max(16, 30 - index * 1.4);
+        return (
+          <div
+            key={`${timestamp}-${point.x}-${point.y}-${index}`}
+            style={{
+              position: "absolute",
+              left: point.x,
+              top: point.y,
+              transform: "translate(-2px, -2px)",
+              opacity: fade,
+              transition: "opacity 0.35s ease-out",
+              pointerEvents: "none",
+            }}
+          >
+            <CursorPointerIcon color={hue} size={size} />
+          </div>
+        );
+      })}
       {lines.map(({ line, color, timestamp }, index) => (
         <svg
-          key={index}
+          key={`line-${timestamp}-${index}`}
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             width: "100vw",
             height: "100vh",
+            pointerEvents: "none",
           }}
         >
           <line
@@ -133,7 +168,7 @@ const CursorTrail: React.FC = () => {
             x2={line.to.x}
             y2={line.to.y}
             stroke={color}
-            strokeWidth="50"
+            strokeWidth="5"
             strokeLinecap="round"
             opacity={Math.max(0, (500 - (Date.now() - timestamp)) / 500)}
           />
@@ -176,8 +211,6 @@ const MainContent: React.FC = () => {
       <TerminalShell ref={terminalRef} />
 
       {/* Overlay elements rendered on top */}
-      <DragAnywhere />
-      <NavigationMenu activeSection={activeSection} runCommand={runCommand} />
       <MobileNavigation activeSection={activeSection} runCommand={runCommand} />
 
       {/* Cursor trail last so it's always on top */}
