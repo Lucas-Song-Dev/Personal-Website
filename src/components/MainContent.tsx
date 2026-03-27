@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { MobileNavigation } from "./NavigationMenu";
 import TerminalShell, { TerminalShellHandle } from "./TerminalShell";
 import { motion } from "framer-motion";
@@ -58,10 +58,10 @@ const CursorTrail: React.FC = () => {
   >([]);
   const [dragging, setDragging] = useState<boolean>(false);
   const [lastPos, setLastPos] = useState<Point | null>(null);
-  const [colorIndex, setColorIndex] = useState<number>(0);
   const [lastDrawTime, setLastDrawTime] = useState<number>(0);
+  const strokeColorIdxRef = useRef(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();
       setTrail((prev) =>
@@ -72,15 +72,17 @@ const CursorTrail: React.FC = () => {
       );
 
       if (dragging && lastPos && now - lastDrawTime > 50) {
+        const idx = strokeColorIdxRef.current % CURSOR_COLORS.length;
+        strokeColorIdxRef.current =
+          (strokeColorIdxRef.current + 1) % CURSOR_COLORS.length;
         setLines((prev) => [
           ...prev,
           {
             line: { from: lastPos, to: { x: e.clientX, y: e.clientY } },
-            color: CURSOR_COLORS[colorIndex % CURSOR_COLORS.length],
+            color: CURSOR_COLORS[idx],
             timestamp: now,
           },
         ]);
-        setColorIndex((prevIndex) => (prevIndex + 1) % CURSOR_COLORS.length);
         setLastDrawTime(now);
       }
       setLastPos({ x: e.clientX, y: e.clientY });

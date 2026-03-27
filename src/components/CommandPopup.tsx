@@ -53,9 +53,9 @@ export default function CommandPopup({ highlightIndex, onSelect, filter }: Comma
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
       transition={{ duration: 0.15 }}
-      className="absolute bottom-full left-0 mb-2 w-full max-w-2xl bg-black/95 border border-secondary/30 rounded-md overflow-hidden font-terminal shadow-2xl z-50"
+      className="pointer-events-auto absolute bottom-full left-0 mb-2 w-full max-w-2xl bg-black/95 border border-secondary/30 rounded-md overflow-hidden font-terminal shadow-2xl z-[210]"
     >
-      <div className="px-3 py-2 border-b border-secondary/20 text-green-400 text-xs opacity-70 tracking-wide">
+      <div className="px-3 py-2 border-b border-secondary/20 text-green-400 text-sm opacity-70 tracking-wide">
         available commands — click or use ↑↓ enter
       </div>
       <ul ref={listRef} className="max-h-64 overflow-y-auto">
@@ -73,8 +73,8 @@ export default function CommandPopup({ highlightIndex, onSelect, filter }: Comma
             }`}
           >
             <span className="text-secondary w-20 shrink-0 text-sm">{c.cmd}</span>
-            <span className="text-gray-500 w-44 shrink-0 hidden sm:block text-xs">{c.syntax}</span>
-            <span className="text-gray-400 text-xs">{c.description}</span>
+            <span className="text-gray-500 w-44 shrink-0 hidden sm:block text-sm">{c.syntax}</span>
+            <span className="text-gray-400 text-sm">{c.description}</span>
           </li>
         ))}
       </ul>
