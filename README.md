@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lucas Song — Portfolio
 
-## Getting Started
+Personal site and portfolio for **Lucas Song**, a full-stack developer and **Computer Engineering** student at **UBC**. The experience is styled as an SSH terminal: you explore sections by typing commands (or using the command palette), with an ASCII/Three.js background and project cards for deeper work.
 
-First, run the development server:
+**Live site:** [lucassong.site](https://lucassong.site/)
+
+## About this project
+
+- **Next.js 15** (App Router) with **static export** (`output: "export"`) for hosting on GitHub Pages or any static host.
+- **Terminal shell UI** with boot sequence, command history, and mapped commands for projects, work, skills, contact, resume, and help.
+- **Framer Motion** for transitions; **Tailwind CSS** for layout and theme.
+- **Three.js**-powered ASCII text effect in the background (`ASCIIText`).
+- **Custom domain** via `public/CNAME` (`lucassong.site`); optional legacy path redirect under `public/Personal-Website/` for old links.
+
+## Tech stack
+
+- React 18, Next.js 15, TypeScript
+- Tailwind CSS, shadcn-style UI primitives (Radix)
+- Framer Motion, Three.js
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) (or your machine’s LAN address if you use `-H 0.0.0.0` in the dev script).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build and lint
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+Static output is written to `out/`.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy (GitHub Pages)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The `deploy` script publishes the `out` folder (after `predeploy` runs `build`):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run deploy
+```
 
-## Deploy on Vercel
+Ensure repository Pages settings point at the correct branch/folder for your setup.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Repository
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Source for the site lives primarily under `src/app` (routes, layout) and `src/components` (terminal shell, sections, UI).
