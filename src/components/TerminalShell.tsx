@@ -521,24 +521,24 @@ const TerminalShell = forwardRef<TerminalShellHandle, object>(
     return (
     <div className="fixed inset-0">
       {/* ASCII background */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-gradient-to-b from-background/35 via-background/20 to-background/45 blur-[1px]">
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-30 bg-gradient-to-b from-background/35 via-background/20 to-background/45 blur-[2px]">
         <motion.div
           className="absolute inset-0"
-          animate={{ opacity: [1, 0, 1] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ opacity: [1, 0.3, 0, 0.3, 1] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         >
           <ASCIIText
             text="FULLSTACK"
             enableWaves={false}
             asciiFontSize={8}
-            textColor="#60a5fa"
           />
         </motion.div>
         <motion.div
           className="absolute inset-0"
-          animate={{ opacity: [0, 1, 0] }}
+          animate={{ opacity: [0, 0.5, 1, 0.5, 0] }}
           transition={{
-            duration: 5,
+            duration: 7,
+            delay: 0,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -547,7 +547,6 @@ const TerminalShell = forwardRef<TerminalShellHandle, object>(
             text="DEVELOPER"
             enableWaves={false}
             asciiFontSize={8}
-            textColor="#22d3ee"
           />
         </motion.div>
       </div>
