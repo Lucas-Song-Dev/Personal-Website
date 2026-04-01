@@ -21,6 +21,7 @@ interface Project {
   link: string;
   github?: string;
   imageHalf?: string;
+  mobileImage?: string;
   isInsights?: boolean;
   fullDescription?: string;
   keyFeatures?: string[];
@@ -30,6 +31,7 @@ interface Project {
     infrastructure?: string[];
   };
   projectHighlights?: string[];
+  mediaType?: "image" | "video";
 }
 
 interface ProjectsSectionProps {
@@ -123,7 +125,9 @@ export default function ProjectsSection({ inTerminal }: ProjectsSectionProps) {
         "Error Handling: Error boundaries and retry strategies",
         "Security: JWT authentication, secure headers, CORS",
       ],
-      image: "documents/painpoint-1.png",
+      image: "documents/iinsightss.mp4",
+      mobileImage: "documents/painpoint-1.png",
+      mediaType: "video",
       link: "https://iinsightss.com/",
       github: "https://github.com/Lucas-Song-Dev/INSIGHT",
       isInsights: true,
@@ -233,53 +237,80 @@ export default function ProjectsSection({ inTerminal }: ProjectsSectionProps) {
                 style={inTerminal ? {} : { opacity }}
                 className={`w-full h-full relative z-20 ${inTerminal || insightsInView ? 'pointer-events-auto' : 'pointer-events-none'}`}
               >
-                <div className="relative w-full h-full flex flex-col md:flex-row gap-6 md:gap-8 py-8">
-                  {/* Large Image - loads in first with parallax */}
-                  <motion.div
-                    ref={insightsImageRef}
-                    style={{ y: imageY }}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: false, amount: 0.2 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="relative w-full md:w-1/2 h-64 md:h-[600px] rounded-lg overflow-hidden"
-                  >
-                    <Image
-                      src={insightsProject.image}
-                      alt={insightsProject.title}
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </motion.div>
+                <div className="relative w-full h-full py-8">
+                  <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+                    <div className="w-full md:w-3/4 space-y-5">
+                      <motion.div
+                        ref={insightsTitleRef}
+                        initial={{ opacity: 0, x: "100%" }}
+                        whileInView={{ opacity: 1, x: "0%" }}
+                        viewport={{ once: false, amount: 0.2 }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                      >
+                        <h3 className="text-4xl md:text-5xl font-terminal text-secondary">
+                          {insightsProject.title}
+                        </h3>
+                      </motion.div>
 
-                  {/* Content Section */}
-                  <div className="w-full md:w-1/2 flex flex-col justify-between">
-                    {/* Title - slides in from top right */}
-                    <motion.div
-                      ref={insightsTitleRef}
-                      initial={{ opacity: 0, x: "100%" }}
-                      whileInView={{ opacity: 1, x: "0%" }}
-                      viewport={{ once: false, amount: 0.2 }}
-                      transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                      className="mb-6"
-                    >
-                      <h3 className="text-4xl md:text-5xl font-terminal text-secondary mb-4">
-                        {insightsProject.title}
-                      </h3>
-                      <p className="text-gray-300 text-lg leading-relaxed">
+                      {/* Large media */}
+                      <motion.div
+                        ref={insightsImageRef}
+                        style={{ y: imageY }}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: false, amount: 0.2 }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                        className="relative w-full h-64 md:h-auto md:aspect-video rounded-xl overflow-hidden bg-black/40"
+                      >
+                        {insightsProject.mediaType === "video" ? (
+                          <>
+                            <video
+                              src={insightsProject.image}
+                              className="hidden md:block h-full w-full object-contain"
+                              autoPlay
+                              muted
+                              loop
+                              playsInline
+                              controls
+                              preload="metadata"
+                            />
+                            <Image
+                              src={insightsProject.mobileImage ?? "documents/painpoint-1.png"}
+                              alt={insightsProject.title}
+                              fill
+                              className="md:hidden object-cover"
+                              priority
+                            />
+                          </>
+                        ) : (
+                          <Image
+                            src={insightsProject.image}
+                            alt={insightsProject.title}
+                            fill
+                            className="object-cover"
+                            priority
+                          />
+                        )}
+                      </motion.div>
+
+                      <motion.p
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: false, amount: 0.2 }}
+                        transition={{ duration: 0.7, delay: 0.35, ease: "easeOut" }}
+                        className="text-gray-300 text-lg leading-relaxed"
+                      >
                         {insightsProject.fullDescription}
-                      </p>
-                    </motion.div>
+                      </motion.p>
+                    </div>
 
-                    {/* Text Content - slides in from bottom left */}
                     <motion.div
                       ref={insightsContentRef}
                       initial={{ opacity: 0, x: "-100%" }}
                       whileInView={{ opacity: 1, x: "0%" }}
                       viewport={{ once: false, amount: 0.2 }}
-                      transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-                      className="space-y-6"
+                      transition={{ duration: 0.8, delay: 0.55, ease: "easeOut" }}
+                      className="w-full md:w-1/4 md:pt-16 space-y-6"
                     >
                       {insightsProject.keyFeatures && (
                         <div>
@@ -350,18 +381,38 @@ export default function ProjectsSection({ inTerminal }: ProjectsSectionProps) {
                 }}
               >
                 <Card className="bg-black/60 border-secondary/20 overflow-hidden h-full flex flex-col">
-                  <div className="relative h-48 w-full overflow-hidden">
+                  <div className="relative h-48 w-full overflow-hidden bg-black/40">
                     <Link
                       target="_blank"
                       href={insightsProject.link}
                       className="text-xs text-black hover:text-secondary/70 transition-colors font-terminal"
                     >
-                      <Image
-                        src={insightsProject.image}
-                        alt={insightsProject.title}
-                        fill
-                        className="object-cover transform hover:scale-110 transition-transform duration-500"
-                      />
+                      {insightsProject.mediaType === "video" ? (
+                        <>
+                          <video
+                            src={insightsProject.image}
+                            className="hidden md:block h-full w-full object-contain"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            preload="metadata"
+                          />
+                          <Image
+                            src={insightsProject.mobileImage ?? "documents/painpoint-1.png"}
+                            alt={insightsProject.title}
+                            fill
+                            className="md:hidden object-cover transform hover:scale-110 transition-transform duration-500"
+                          />
+                        </>
+                      ) : (
+                        <Image
+                          src={insightsProject.image}
+                          alt={insightsProject.title}
+                          fill
+                          className="object-cover transform hover:scale-110 transition-transform duration-500"
+                        />
+                      )}
                     </Link>
                   </div>
                   <CardHeader>

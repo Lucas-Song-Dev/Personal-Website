@@ -520,16 +520,20 @@ const TerminalShell = forwardRef<TerminalShellHandle, object>(
 
     return (
     <div className="fixed inset-0">
-      {/* ASCII background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <ASCIIText text="Lucas_Song   " enableWaves={true} asciiFontSize={8} />
-      </div>
+      {/* ASCII background badge */}
+      <motion.div
+        className="absolute top-4 right-12 z-[1] h-80 w-160 md:h-[28rem] md:w-[32rem] pointer-events-none overflow-hidden rounded-md blur-[1px] opacity-80"
+        animate={{ rotate: [0, -50, 50, -50] }}
+        transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+      >
+        <ASCIIText text="Lucas" enableWaves={true} asciiFontSize={12} />
+      </motion.div>
 
       {/* Haze layer */}
-      <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-background/60 via-background/40 to-background/70 backdrop-blur-[2px]" />
+      {/* <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-background/60 via-background/40 to-background/70" /> */}
 
       {/* Terminal UI */}
-      <div className="absolute inset-0 z-[2] flex min-h-0 min-w-0 flex-col font-terminal px-4 md:px-20 2xl:px-40 overflow-x-hidden">
+      <div className="absolute inset-0 z-[2] flex min-h-0 min-w-0 flex-col font-terminal px-4 md:px-20 2xl:px-40 overflow-x-hidden ">
         {/* Scrollable history — keep below the input bar + popup */}
         <div
           ref={outputRef}

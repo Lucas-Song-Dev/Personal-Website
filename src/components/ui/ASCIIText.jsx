@@ -327,8 +327,8 @@ class CanvAscii {
     this.container.appendChild(this.filter.domElement);
     this.setSize(this.width, this.height);
 
-    this.container.addEventListener("mousemove", this.onMouseMove);
-    this.container.addEventListener("touchmove", this.onMouseMove);
+    window.addEventListener("mousemove", this.onMouseMove, { passive: true });
+    window.addEventListener("touchmove", this.onMouseMove, { passive: true });
   }
 
   setSize(w, h) {
@@ -412,8 +412,8 @@ class CanvAscii {
     cancelAnimationFrame(this.animationFrameId);
     this.filter.dispose();
     this.container.removeChild(this.filter.domElement);
-    this.container.removeEventListener("mousemove", this.onMouseMove);
-    this.container.removeEventListener("touchmove", this.onMouseMove);
+    window.removeEventListener("mousemove", this.onMouseMove);
+    window.removeEventListener("touchmove", this.onMouseMove);
     this.clear();
     this.renderer.dispose();
   }
