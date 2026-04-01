@@ -2,7 +2,7 @@
 const nextConfig = {
   output: "export",
   distDir: "out",
-  basePath: "/Personal-Website", // Change to your GitHub repo name
+  basePath: "/Personal-Website", // GitHub repo name
   assetPrefix: "/Personal-Website/", // Required for static assets
   images: {
     unoptimized: true,
