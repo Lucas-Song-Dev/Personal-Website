@@ -10,12 +10,7 @@ interface Point {
   y: number;
 }
 
-interface Line {
-  from: Point;
-  to: Point;
-}
-
-/** Distinct hues for pointer SVGs and drag strokes (not gradients / spheres). */
+/** Distinct hues for stacked cursor icons on drag. */
 const CURSOR_COLORS = [
   "#22d3ee", // cyan
   "#e879f9", // fuchsia
@@ -53,55 +48,36 @@ function CursorPointerIcon({
 
 const CursorTrail: React.FC = () => {
   const [trail, setTrail] = useState<{ point: Point; timestamp: number }[]>([]);
-  const [lines, setLines] = useState<
-    { line: Line; color: string; timestamp: number }[]
-  >([]);
-  const [dragging, setDragging] = useState<boolean>(false);
-  const [lastPos, setLastPos] = useState<Point | null>(null);
-  const [lastDrawTime, setLastDrawTime] = useState<number>(0);
-  const strokeColorIdxRef = useRef(0);
+  const draggingRef = useRef(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();
-      setTrail((prev) =>
-        [
-          ...prev,
-          { point: { x: e.clientX, y: e.clientY }, timestamp: now },
-        ].slice(-10)
-      );
+      const x = e.clientX;
+      const y = e.clientY;
 
-      if (dragging && lastPos && now - lastDrawTime > 50) {
-        const idx = strokeColorIdxRef.current % CURSOR_COLORS.length;
-        strokeColorIdxRef.current =
-          (strokeColorIdxRef.current + 1) % CURSOR_COLORS.length;
-        setLines((prev) => [
-          ...prev,
-          {
-            line: { from: lastPos, to: { x: e.clientX, y: e.clientY } },
-            color: CURSOR_COLORS[idx],
-            timestamp: now,
-          },
-        ]);
-        setLastDrawTime(now);
+      if (!draggingRef.current) {
+        return;
       }
-      setLastPos({ x: e.clientX, y: e.clientY });
+
+      setTrail((prev) =>
+        [...prev, { point: { x, y }, timestamp: now }].slice(-10)
+      );
     };
 
-    const handleMouseDown = (e: MouseEvent) => {
-      setDragging(true);
-      setLastPos({ x: e.clientX, y: e.clientY });
+    const handleMouseDown = () => {
+      draggingRef.current = true;
+      setTrail([]);
     };
 
-    const handleMouseUp = () => {
-      setDragging(false);
-      setLastPos(null);
-      setTimeout(() => setLines([]), 500);
+    const endDrag = () => {
+      if (!draggingRef.current) return;
+      draggingRef.current = false;
+      setTrail([]);
     };
 
     const interval = setInterval(() => {
       const now = Date.now();
-      setLines((prev) => prev.filter((line) => now - line.timestamp < 500));
       setTrail((prev) =>
         prev.filter((trailPoint) => now - trailPoint.timestamp < 500)
       );
@@ -109,15 +85,17 @@ const CursorTrail: React.FC = () => {
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("mouseup", endDrag, true);
+    window.addEventListener("blur", endDrag);
 
     return () => {
       clearInterval(interval);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mouseup", endDrag, true);
+      window.removeEventListener("blur", endDrag);
     };
-  }, [dragging, lastPos, lastDrawTime]);
+  }, []);
 
   return (
     <div
@@ -152,30 +130,6 @@ const CursorTrail: React.FC = () => {
           </div>
         );
       })}
-      {lines.map(({ line, color, timestamp }, index) => (
-        <svg
-          key={`line-${timestamp}-${index}`}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            pointerEvents: "none",
-          }}
-        >
-          <line
-            x1={line.from.x}
-            y1={line.from.y}
-            x2={line.to.x}
-            y2={line.to.y}
-            stroke={color}
-            strokeWidth="5"
-            strokeLinecap="round"
-            opacity={Math.max(0, (500 - (Date.now() - timestamp)) / 500)}
-          />
-        </svg>
-      ))}
     </div>
   );
 };
