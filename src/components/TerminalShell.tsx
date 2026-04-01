@@ -256,6 +256,15 @@ function resolveCommand(raw: string): string | null {
   return map[s] ?? null;
 }
 
+/** Commands whose output is a large in-terminal section (easier reading with heavier backdrop blur). */
+const SECTION_OUTPUT_COMMANDS = new Set([
+  "projects",
+  "work",
+  "skills",
+  "contact",
+  "resume",
+]);
+
 function buildOutput(canonical: string | null, raw: string): React.ReactNode {
   const fade = (children: React.ReactNode, delay = 0.3) => (
     <motion.div
@@ -368,6 +377,15 @@ const TerminalShell = forwardRef<TerminalShellHandle, object>(
           c.syntax.startsWith(inputValue.toLowerCase())
       )
     : COMMANDS;
+
+  const asciiBackdropHeavyBlur = useMemo(
+    () =>
+      history.some((entry) => {
+        const c = resolveCommand(entry.command);
+        return c !== null && SECTION_OUTPUT_COMMANDS.has(c);
+      }),
+    [history]
+  );
 
   const executeCommand = useCallback((rawCmd: string) => {
     const trimmed = rawCmd.trim();
@@ -521,7 +539,11 @@ const TerminalShell = forwardRef<TerminalShellHandle, object>(
     return (
     <div className="fixed inset-0">
       {/* ASCII background */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-30 bg-gradient-to-b from-background/35 via-background/20 to-background/45 blur-[2px]">
+      <div
+        className={`absolute inset-0 z-0 pointer-events-none opacity-30 bg-gradient-to-b from-background/35 via-background/20 to-background/45 ${
+          asciiBackdropHeavyBlur ? "blur-[16px]" : "blur-[2px]"
+        }`}
+      >
         <motion.div
           className="absolute inset-0"
           animate={{ opacity: [1, 0.3, 0, 0.3, 1] }}
