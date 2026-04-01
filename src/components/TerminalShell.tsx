@@ -525,7 +525,7 @@ const TerminalShell = forwardRef<TerminalShellHandle, object>(
         <motion.div
           className="absolute inset-0"
           animate={{ opacity: [1, 0.3, 0, 0.3, 1] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >
           <ASCIIText
             text="FULLSTACK"
@@ -537,7 +537,7 @@ const TerminalShell = forwardRef<TerminalShellHandle, object>(
           className="absolute inset-0"
           animate={{ opacity: [0, 0.5, 1, 0.5, 0] }}
           transition={{
-            duration: 7,
+            duration: 5,
             delay: 0,
             repeat: Infinity,
             ease: "easeInOut",
