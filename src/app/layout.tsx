@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+/** Bundled from `public/fonts` — avoids runtime fetch to fonts.googleapis.com. */
+const inter = localFont({
+  src: "../../public/fonts/inter-latin-wght-normal.woff2",
+  variable: "--font-sans",
+  display: "swap",
+  weight: "100 900",
+});
 
 export const metadata: Metadata = {
   title: "Lucas Song- Full Stack Developer",

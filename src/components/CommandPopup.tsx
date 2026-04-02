@@ -2,23 +2,10 @@
 
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { COMMANDS } from "@/lib/terminalCommandRegistry";
 
-export interface CommandDef {
-  cmd: string;
-  syntax: string;
-  description: string;
-}
-
-export const COMMANDS: CommandDef[] = [
-  { cmd: "projects", syntax: "ls ~/projects/",           description: "view my projects" },
-  { cmd: "work",     syntax: "ls ~/work/",               description: "work experience" },
-  { cmd: "skills",   syntax: "cat ~/.skills",            description: "skills & tools" },
-  { cmd: "contact",  syntax: 'mail -s "hello" lucas@',  description: "get in touch" },
-  { cmd: "resume",   syntax: "cat resume.pdf",           description: "download resume" },
-  { cmd: "whoami",   syntax: "whoami",                   description: "about lucas" },
-  { cmd: "clear",    syntax: "clear",                    description: "clear terminal" },
-  { cmd: "help",     syntax: "help",                     description: "show this list" },
-];
+export type { CommandDef } from "@/lib/terminalCommandRegistry";
+export { COMMANDS } from "@/lib/terminalCommandRegistry";
 
 interface CommandPopupProps {
   highlightIndex: number;

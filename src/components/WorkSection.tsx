@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { SectionShell } from "@/components/sections/SectionShell";
+import { TerminalSectionHeading } from "@/components/sections/TerminalSectionHeading";
+import { TechBadge } from "@/components/sections/TechBadge";
 
 interface WorkExperience {
   id: string;
@@ -15,7 +18,6 @@ interface WorkSectionProps {
 
 export default function WorkSection({ inTerminal }: WorkSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
-  console.log("🚀 ~ WorkSection ~ activeTab:", activeTab);
   const experiences: WorkExperience[] = [
     {
       id: "genies-fullstack-2025",
@@ -24,8 +26,8 @@ export default function WorkSection({ inTerminal }: WorkSectionProps) {
       period: "Jun 2025 - Present",
       description: [
         "Led development of a full stack real-time job monitoring dashboard that reduced debugging time by ~75% for 200+ concurrent AI generation jobs, providing live progress tracking and instant slack failure notifications",
-        "Cut asset generation time by 40% through multi-stage pipeline with Google AI Gemini integration, action caching, and parallel processing workpools",
         "Created KPI dashboard elevating feature progress to executives and board for strategic decisions",
+        "Reduced asset generation time by 20% by implementing caching and parallel processing in our pipeline",
         "Engineered multi-tier authorization system across Convex backend, admin dashboard, and consumer app enabling role-specific data access and operations",
       ],
       technologies: ["React", "TypeScript", "Convex", "Google AI Gemini", "Node.js"],
@@ -63,25 +65,9 @@ export default function WorkSection({ inTerminal }: WorkSectionProps) {
     },
   ];
 
-  console.log("🚀 ~ WorkSection ~ experiences:", experiences);
   return (
-    <section
-      {...(!inTerminal && { id: "work" })}
-      className={`${inTerminal ? "" : "min-h-screen"} flex flex-col justify-center px-4 md:px-20 2xl:px-40 py-20`}
-    >
-      <div className="max-w-6xl mx-auto w-full">
-        {!inTerminal && (
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-responsive-h2 font-terminal mb-12 border-b border-secondary/30 pb-4 flex flex-wrap items-baseline gap-2"
-          >
-            <span className="text-green-400 text-base md:text-lg opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
-            <span className="text-secondary">ls ~/work/</span>
-          </motion.h2>
-        )}
+    <SectionShell sectionId="work" inTerminal={inTerminal}>
+      <TerminalSectionHeading inTerminal={inTerminal} commandLine="ls ~/work/" />
 
         <div className="flex flex-col md:flex-row gap-8">
           <motion.div
@@ -149,17 +135,11 @@ export default function WorkSection({ inTerminal }: WorkSectionProps) {
 
             <div className="flex flex-wrap gap-2 mt-4">
               {experiences[activeTab].technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2 py-1 bg-secondary/20 text-secondary text-xs rounded-md font-terminal"
-                >
-                  {tech}
-                </span>
+                <TechBadge key={tech}>{tech}</TechBadge>
               ))}
             </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+    </SectionShell>
   );
 }

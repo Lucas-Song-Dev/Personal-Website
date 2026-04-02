@@ -10,7 +10,14 @@ Personal site and portfolio for **Lucas Song**, a full-stack developer and **Com
 - **Terminal shell UI** with boot sequence, command history, and mapped commands for projects, work, skills, contact, resume, and help.
 - **Framer Motion** for transitions; **Tailwind CSS** for layout and theme.
 - **Three.js**-powered ASCII text effect in the background (`ASCIIText`).
+- **Idle easter egg:** if the tab stays active and you don’t interact for two minutes, the session prints an SSH-style *Connection reset by peer* message and reruns the boot sequence (like getting dropped from a real shell). Append `?idleKickMs=15000` to the URL to try it with a 15s timeout (values `5000`–`600000` ms).
 - **Custom domain** via `public/CNAME` (`lucassong.site`); optional legacy path redirect under `public/Personal-Website/` for old links.
+
+### LinkedIn draft (Option A — deadpan)
+
+I’m graduating and thought I’d update my portfolio. I’ve spent the last week mostly in `ssh` to EC2, and at some point your brain stops separating “work terminal” from “everything else.” So the site leans into that: fake shell, real projects, less `Connection reset by peer`—unless you go idle long enough, in which case it does exactly that on purpose and makes you “SSH” back in.
+
+If that sounds like your kind of joke: [lucassong.site](https://lucassong.site/)
 
 ## Tech stack
 

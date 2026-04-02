@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { SectionShell } from "@/components/sections/SectionShell";
+import { TerminalSectionHeading } from "@/components/sections/TerminalSectionHeading";
 
 interface ContactSectionProps {
   inTerminal?: boolean;
@@ -45,23 +46,11 @@ export default function ContactSection({ inTerminal }: ContactSectionProps) {
   };
 
   return (
-    <section
-      {...(!inTerminal && { id: "contact" })}
-      className={`${inTerminal ? "" : "min-h-screen"} flex flex-col justify-center px-4 md:px-20 2xl:px-40 py-20`}
-    >
-      <div className="max-w-6xl mx-auto w-full">
-        {!inTerminal && (
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-responsive-h2 font-terminal mb-12 border-b border-secondary/30 pb-4 flex flex-wrap items-baseline gap-2"
-          >
-            <span className="text-green-400 text-base md:text-lg opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
-            <span className="text-secondary">{"mail -s \"hello\" lucas@"}</span>
-          </motion.h2>
-        )}
+    <SectionShell sectionId="contact" inTerminal={inTerminal}>
+      <TerminalSectionHeading
+        inTerminal={inTerminal}
+        commandLine={'mail -s "hello" lucas@'}
+      />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <motion.div
@@ -72,10 +61,11 @@ export default function ContactSection({ inTerminal }: ContactSectionProps) {
             viewport={inTerminal ? undefined : { once: true }}
             className="space-y-6"
           >
-            <h3 className="text-responsive-h4 font-terminal mb-6 flex flex-wrap items-baseline gap-2">
-              <span className="text-green-400 text-sm opacity-70">[ec2-user@ip-172-31-14-88 ~]$</span>
-              <span className="text-secondary">sendmail lucas02.song@gmail.com</span>
-            </h3>
+            <TerminalSectionHeading
+              level={3}
+              inTerminal={inTerminal}
+              commandLine="sendmail lucas02.song@gmail.com"
+            />
             <p className="text-gray-400">
               I&#39;m currently looking for new opportunities. Whether you have a
               question or just want to say hi, feel free to reach out and I&#39;ll
@@ -130,7 +120,6 @@ export default function ContactSection({ inTerminal }: ContactSectionProps) {
             </iframe>
           </motion.div>
         </div>
-      </div>
-    </section>
+    </SectionShell>
   );
 }
