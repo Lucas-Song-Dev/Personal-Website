@@ -15,7 +15,7 @@ interface ProjectsSectionProps {
 export default function ProjectsSection({ inTerminal }: ProjectsSectionProps) {
   const [hoveredImage, setHoveredImage] = useState("");
 
-  const insightsProject = projects.find((p) => p.isInsights);
+  const insightsProjects = projects.filter((p) => p.isInsights);
   const otherProjects = projects.filter((p) => !p.isInsights);
 
   return (
@@ -30,12 +30,13 @@ export default function ProjectsSection({ inTerminal }: ProjectsSectionProps) {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {insightsProject && (
+        {insightsProjects.map((insightsProject) => (
           <InsightsProjectShowcase
+            key={insightsProject.title}
             insightsProject={insightsProject}
             inTerminal={inTerminal}
           />
-        )}
+        ))}
 
         {otherProjects.map((project, index) => {
           const cardMotion = inTerminal

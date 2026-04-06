@@ -80,7 +80,9 @@ export function InsightsProjectShowcase({
                   <>
                     <video
                       src={insightsProject.image}
-                      className="hidden md:block h-full w-full object-contain"
+                      className={`h-full w-full object-contain ${
+                        insightsProject.mobileImage ? "hidden md:block" : ""
+                      }`}
                       autoPlay
                       muted
                       loop
@@ -88,15 +90,15 @@ export function InsightsProjectShowcase({
                       controls
                       preload="metadata"
                     />
-                    <Image
-                      src={
-                        insightsProject.mobileImage ?? "documents/painpoint-1.png"
-                      }
-                      alt={insightsProject.title}
-                      fill
-                      className="md:hidden object-cover"
-                      priority
-                    />
+                    {insightsProject.mobileImage ? (
+                      <Image
+                        src={insightsProject.mobileImage}
+                        alt={insightsProject.title}
+                        fill
+                        className="md:hidden object-cover"
+                        priority
+                      />
+                    ) : null}
                   </>
                 ) : (
                   <Image

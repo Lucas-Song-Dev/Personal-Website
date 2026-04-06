@@ -24,19 +24,23 @@ export function ProjectCardMedia({
         <>
           <video
             src={project.image}
-            className="hidden md:block h-full w-full object-contain"
+            className={`h-full w-full object-contain ${
+              project.mobileImage ? "hidden md:block" : ""
+            }`}
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
           />
-          <Image
-            src={project.mobileImage ?? "documents/painpoint-1.png"}
-            alt={project.title}
-            fill
-            className="md:hidden object-cover transform hover:scale-110 transition-transform duration-500"
-          />
+          {project.mobileImage ? (
+            <Image
+              src={project.mobileImage}
+              alt={project.title}
+              fill
+              className="md:hidden object-cover transform hover:scale-110 transition-transform duration-500"
+            />
+          ) : null}
         </>
       ) : (
         <Image

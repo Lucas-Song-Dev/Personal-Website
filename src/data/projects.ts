@@ -88,6 +88,32 @@ export const projects: Project[] = [
     isInsights: true,
   },
   {
+    title: "DDR5 Power Calculator",
+    description:
+      "JEDEC-aligned DDR5 memory power modeling: core, interface, and DIMM totals with charts, 3D visualization, inverse search, and server deployment planning.",
+    fullDescription:
+      "A full-stack tool for estimating DDR5 power from memory geometry, IDD/IPP-style currents, timing, and workload mix (bank states, read/write duty, refresh). A Python core models die power on VDD and VPP, POD-style VDDQ interface power with DDR5 dual-subchannel geometry, and optional RDIMM buffering; FastAPI serves /api/calculate/* including batch scans; Next.js 14 provides presets, React Three Fiber visuals, target-power inverse search, and fleet-style ranking against power and capacity limits. Intended for learning and planning—not a substitute for silicon or module measurement.",
+    technologies: [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "TypeScript",
+      "Three.js",
+      "pytest / Vitest",
+    ],
+    keyFeatures: [
+      "Steady-state core model blending IDD2N/3N/4R/4W/5B-style terms with workload percentages and refresh duty",
+      "Interface model for two 40-bit subchannels per rank, WCK/CK/CA/DQS activity, and POD termination read vs write split",
+      "DIMM aggregation: devices per rank, interface once per module, component model path for registered DIMMs",
+      "Inverse search and server deployment views: batch API ranking vs power, data rate, slot, and server-count constraints",
+      "TypeScript port of the calculator with try-API-then-local fallback so the UI stays usable offline",
+    ],
+    image: "documents/ddr5_modeling_calc.mp4",
+    mediaType: "video",
+    link: "https://capstone-ai-037.vercel.app/server-deployment",
+    isInsights: true,
+  },
+  {
     title: "2025 STK-market | WIP",
     description:
       "Heatmap stock market, useful for arbitrage backtesting momentum strategies",
