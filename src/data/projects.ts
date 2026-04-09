@@ -110,7 +110,8 @@ export const projects: Project[] = [
     ],
     image: "documents/ddr5_modeling_calc.mp4",
     mediaType: "video",
-    link: "https://capstone-ai-037.vercel.app/server-deployment",
+    link: "https://capstone-ai-037.vercel.app/",
+    github: "https://github.com/Lucas-Song-Dev/Capstone_AI_037",
     isInsights: true,
   },
   {
