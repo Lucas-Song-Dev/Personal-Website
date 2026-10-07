@@ -26,15 +26,15 @@ export default function ResumeSection({ inTerminal }: ResumeSectionProps) {
             <div className="space-y-8">
               <div className="bg-black/30 p-6 rounded-lg border border-secondary/20">
                 <h4 className="text-responsive-h5 font-terminal">
-                  Bachelor’s Degree in Applied Science, Computer Engineering
+                  Computer Engineering
                 </h4>
                 <p className="text-secondary font-terminal mb-2">
-                  The University of British Columbia
+                  University of British Columbia
                 </p>
-                <p className="text-gray-400">Expected 2026</p>
+                <p className="text-gray-400">May 2026</p>
                 <p className="mt-4">
-                  Coursework: Software Construction, Computer Hardware, Data
-                  Structures and Algorithms, Math Proofs, Linear Algebra.
+                  Relevant courses: Algorithms & Data Structures, Software
+                  Testing and Analysis, Database and Design.
                 </p>
               </div>
             </div>

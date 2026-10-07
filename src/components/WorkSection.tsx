@@ -9,6 +9,8 @@ interface WorkExperience {
   company: string;
   position: string;
   period: string;
+  location: string;
+  context?: string;
   description: string[];
   technologies: string[];
 }
@@ -23,45 +25,51 @@ export default function WorkSection({ inTerminal }: WorkSectionProps) {
       id: "genies-fullstack-2025",
       company: "GENIES",
       position: "Full Stack Developer",
-      period: "Jun 2025 - Present",
+      period: "Jun 2025 – Jun 2026",
+      location: "Los Angeles, CA · Remote",
+      context: "AI avatar company partnered with Unity, NBPA, and UMG.",
       description: [
-        "Led development of a full stack real-time job monitoring dashboard that reduced debugging time by ~75% for 200+ concurrent AI generation jobs, providing live progress tracking and instant slack failure notifications",
-        "Created KPI dashboard elevating feature progress to executives and board for strategic decisions",
-        "Reduced asset generation time by 20% by implementing caching and parallel processing in our pipeline",
-        "Engineered multi-tier authorization system across Convex backend, admin dashboard, and consumer app enabling role-specific data access and operations",
+        "Designed a Python wrapper library to automatically catch and report pipeline failures at their exact origin, and personally implemented it across 3 teams' codebases despite no formal mandate.",
+        "Built a real-time dashboard (React, DynamoDB, S3) surfacing 200+ daily assets via instant Slack failure alerts, eliminating manual cross-team failure hunting.",
+        "Reduced asset generation time from 20 minutes to 7 minutes by refactoring a sequential build pipeline into parallel AWS Step Functions workflows.",
+        "Engineered a multi-tier authorization system across the Convex backend, admin dashboard, and consumer app, enabling role-specific data access and operations that scaled to dozens of teams and hundreds of users.",
       ],
-      technologies: ["React", "TypeScript", "Convex", "Google AI Gemini", "Node.js"],
+      technologies: [
+        "Python",
+        "React",
+        "DynamoDB",
+        "S3",
+        "AWS Step Functions",
+        "Convex",
+        "Slack",
+      ],
     },
     {
       id: "ibm-fullstack-intern-2024",
       company: "IBM",
-      position: "Full Stack Developer Intern",
-      period: "Jul 2023 - Aug 2024",
+      position: "Full Stack Intern",
+      period: "Aug 2023 – Aug 2024",
+      location: "Markham, ON · Hybrid",
+      context: "Cloud Pak for AIOps",
       description: [
-        "Built 40+ AI-powered features for Cloudpak4aiops incident management, reducing manual alert triage for Fortune 500 clients",
-        "Championed an internal product that slashed bug reproduction time by 85% to read, store and replay client state and data when reporting a bug",
-        "Owned end-to-end delivery of a critical feature supporting 600k active incidents simultaneously with granular role-based access control",
-        "Reduced backlog of bugs by 40%, over 130 over the course of 16 months",
-        "Created decks and performed client presentations and training for 100s of attendees",
+        "Built ~10 AI-powered features for Cloud Pak for AIOps incident management, reducing manual alert triage for Fortune 500 clients.",
+        "Developed an internal debugging tool that reduced bug reproduction time by 85% by capturing and replaying client state and data.",
+        "Partnered with design and QA to build and ship an incident management feature that filtered and surfaced the top 10–100 priority incidents from a pool of up to 600k concurrent incidents per client, owning the full-stack implementation.",
       ],
-      technologies: ["React", "Python", "Node.js", "AI/ML"],
+      technologies: ["AI/ML"],
     },
     {
       id: "ibm-qa-intern-2023",
       company: "IBM",
-      position: "Quality Assurance Intern",
-      period: "May 2023 - Jul 2023",
+      position: "QA Intern",
+      period: "May 2023 – Aug 2023",
+      location: "Markham, ON · Hybrid",
+      context: "Cloud Pak for AIOps",
       description: [
-        "Delivered a testing system twice as reliable by rebuilding the 2-year-old end-to-end testing pipeline using Nightwatch on Selenium to automate testing across different browsers",
-        "Developed internal tooling to automate the creation of new end-to-end tests by recording the actions of users on multiple different devices and browsers reducing developer frustration",
+        "Migrated a 2-year-old end-to-end testing pipeline to Nightwatch.js (Selenium-based), modernizing test execution across thousands of tests and 5 browser combinations.",
+        "Built a GitHub Actions workflow to auto-scan the DOM and regenerate tests using self-healing data-id selectors instead of brittle CSS and ID selectors, eliminating flaky cross-browser failures.",
       ],
-      technologies: [
-        "Nightwatch",
-        "Selenium",
-        "JavaScript",
-        "Python",
-        "Jira",
-      ],
+      technologies: ["Nightwatch.js", "Selenium", "GitHub Actions"],
     },
   ];
 
@@ -93,11 +101,17 @@ export default function WorkSection({ inTerminal }: WorkSectionProps) {
                     <span>
                       <span className="text-green-400 opacity-70">→ </span>
                       {experience.company}/
+                      <span className="block text-xs mt-1 opacity-80">
+                        {experience.position}
+                      </span>
                     </span>
                   ) : (
                     <span>
                       <span className="opacity-50">$ cd </span>
                       {experience.company}/
+                      <span className="block text-xs mt-1 opacity-60">
+                        {experience.position}
+                      </span>
                     </span>
                   )}
                 </button>
@@ -120,9 +134,17 @@ export default function WorkSection({ inTerminal }: WorkSectionProps) {
               </span>
             </h3>
 
-            <p className="text-gray-400 font-terminal mb-4">
+            <p className="text-gray-400 font-terminal">
               {experiences[activeTab].period}
             </p>
+            <p className="text-gray-500 font-terminal text-sm mb-1">
+              {experiences[activeTab].location}
+            </p>
+            {experiences[activeTab].context && (
+              <p className="text-gray-400 mb-4">
+                {experiences[activeTab].context}
+              </p>
+            )}
 
             <ul className="space-y-4 mb-6">
               {experiences[activeTab].description.map((item, index) => (

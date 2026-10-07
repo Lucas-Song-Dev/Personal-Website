@@ -23,9 +23,9 @@ export const projects: Project[] = [
   {
     title: "INSIGHTS",
     description:
-      "AI-powered platform that analyzes Reddit discussions to identify product pain points and generate actionable recommendations for businesses.",
+      "AI-powered feedback platform aggregating data across Reddit, GitHub, Twitter/X, and app stores.",
     fullDescription:
-      "Enabled a local business to reconnect with inactive customers through targeted pain point analysis, driving a 50% increase in 6-month dormant user re-engagement by addressing critical product gaps. Scraped and analyzed 15,000+ Reddit posts across 50+ subreddits using automated NLP pipeline, processing 3.2M words of user feedback to generate actionable insights stored in MongoDB.",
+      "Scraped and analyzed 15,000+ posts across hundreds of sources using an automated NLP pipeline, processing 3.2M words of user feedback to generate actionable insights stored in MongoDB. Asynchronous job pipelines and a user-scoped MongoDB data layer, with authentication and per-user isolation, support repeatable analysis at scale.",
     technologies: [
       "React",
       "Python/Flask",
@@ -60,11 +60,11 @@ export const projects: Project[] = [
       ],
     },
     keyFeatures: [
-      "AI-Powered Discovery: Automatically finds and analyzes relevant discussions using Claude AI",
-      "Advanced NLP Analysis: Sentiment analysis with 94% accuracy using spaCy and transformers",
-      "Pain Point Detection: Identifies and categorizes user pain points by type and severity",
-      "Smart Recommendations: Generates actionable recommendations using Claude AI",
-      "Credits System: Fair usage system with credit-based operations",
+      "Aggregates feedback across Reddit, GitHub, Twitter/X, and app stores",
+      "NLP pipeline over 15,000+ posts and 3.2M words, with insights stored in MongoDB",
+      "Asynchronous job pipelines with a user-scoped data layer, authentication, and per-user isolation",
+      "Pain point detection that categorizes feedback by type and severity",
+      "Recommendations generated from the analyzed feedback",
       "Real-time Dashboard: Monitor analysis progress and results",
       "User Authentication: JWT-based authentication with secure cookie sessions",
       "Responsive Design: Works on desktop and mobile",
